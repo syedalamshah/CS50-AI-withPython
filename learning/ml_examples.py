@@ -65,7 +65,7 @@ def linear_regression_example():
     y_test = [200, 300]
     
     # Train model
-    model = LinearRegression(learning_rate=0.0000001, iterations=10000)
+    model = LinearRegression(learning_rate=0.0001, iterations=1000)
     model.fit(X_train, y_train)
     
     # Make predictions

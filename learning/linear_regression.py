@@ -9,13 +9,16 @@ class LinearRegression:
     Fits a line y = mx + b to data.
     """
     
-    def __init__(self, learning_rate=0.0000001, iterations=10000):
+    def __init__(self, learning_rate=0.0001, iterations=1000):
         """
         Initialize linear regression model.
         
         Args:
             learning_rate: Step size for gradient descent
             iterations: Number of training iterations
+        
+        Note: Learning rate is tuned for typical house price scale data.
+        For data on different scales, consider feature scaling or adjusting this value.
         """
         self.learning_rate = learning_rate
         self.iterations = iterations

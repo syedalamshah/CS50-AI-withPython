@@ -23,9 +23,11 @@ def dfs(maze):
     start = Node(state=maze.start, parent=None, action=None)
     frontier = [start]  # Stack
     explored = set()
+    frontier_states = {maze.start}  # Track states in frontier for O(1) lookup
     
     while frontier:
         node = frontier.pop()
+        frontier_states.discard(node.state)
         
         if node.state == maze.goal:
             # Reconstruct path
@@ -42,9 +44,10 @@ def dfs(maze):
         explored.add(node.state)
         
         for action, state in maze.neighbors(node.state):
-            if state not in explored and not any(n.state == state for n in frontier):
+            if state not in explored and state not in frontier_states:
                 child = Node(state=state, parent=node, action=action)
                 frontier.append(child)
+                frontier_states.add(state)
     
     return None
 
@@ -64,9 +67,11 @@ def bfs(maze):
     start = Node(state=maze.start, parent=None, action=None)
     frontier = deque([start])  # Queue
     explored = set()
+    frontier_states = {maze.start}  # Track states in frontier for O(1) lookup
     
     while frontier:
         node = frontier.popleft()
+        frontier_states.discard(node.state)
         
         if node.state == maze.goal:
             # Reconstruct path
@@ -83,9 +88,10 @@ def bfs(maze):
         explored.add(node.state)
         
         for action, state in maze.neighbors(node.state):
-            if state not in explored and not any(n.state == state for n in frontier):
+            if state not in explored and state not in frontier_states:
                 child = Node(state=state, parent=node, action=action)
                 frontier.append(child)
+                frontier_states.add(state)
     
     return None
 
